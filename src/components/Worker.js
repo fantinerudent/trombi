@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Geometrics from "../assets/banner.jpg";
+import WorkersContext from "../Contexts/WorkersContext";
 import HeartsBanner from "../assets/hearts.jpg";
 
+const WorkersWrapper = styled.div`
+  justify-content: center;
+  position: relative;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 45% 45%;
+  @media screen and (min-width: 850px) {
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-auto-rows: fit-content;
+  }
+`;
+const FavoritesWrapper = styled.div`
+  display: flex;
+  flex-direction: rows;
+  width: fit-content;
+`;
+const SelectWrapper = styled.div`
+  display: flex;
+  flex-direction: rows;
+`;
+
 const Name = styled.div`
+  margin-top: -60px;
   text-align: center;
-  font-size: 1.5vw;
+  font-size: 1.5em;
   font-weight: bold;
 `;
 
@@ -23,14 +46,10 @@ const BackgroundFavWorker = styled.div`
   position: relative;
   border-radius: 20px 20px 0 0;
 `;
-
 const Button = styled.button`
-  position: relative;
-  top: 20px;
-  left: 40%;
-  margin-bottom: 10px;
+  margin-bottom: -10px;
   border: none;
-  font-size: 3em;
+  font-size: 1em;
   background-color: white;
   border-radius: 50%;
   opacity: 0.8;
@@ -50,6 +69,7 @@ const DivImage = styled.div`
   display: flex;
   margin: 0 auto;
 `;
+
 const StyledImg = styled.img`
   position: relative;
   top: -60px;
@@ -70,6 +90,11 @@ const FavCoworker = styled.div`
   margin-top: 20px;
   background-color: white;
   border-radius: 30px;
+  padding: 1px;
+  border: 3px red solid;
+  -webkit-box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
+  -moz-box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
+  box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
 `;
 
 const Coworker = styled.div`
@@ -84,9 +109,12 @@ const Coworker = styled.div`
   box-shadow: inset 1px 4px 29px 6px rgba(14, 89, 99, 1);
 `;
 
-function Worker({ workersProps }) {
-  const [workers, setWorkers] = useState(workersProps);
-  const [favWorkers, setFavWorkers] = useState([]);
+function Worker() {
+  const { workers, setWorkers, favWorkers, setFavWorkers } = useContext(
+    WorkersContext
+  );
+
+  const [selectedWorkers, setSelecterWorkers] = useState([]);
 
   const handleClickFav = (worker) => {
     let indexInFav = favWorkers.indexOf(worker);
@@ -105,36 +133,65 @@ function Worker({ workersProps }) {
     return setWorkers(newArrayOfWorkers);
   };
 
+  const handleChangeSelect = (event) => {
+    let arraySelectedWorkers = [];
+    workers.map((worker) => {
+      if (worker.department === event.currentTarget.value) {
+        arraySelectedWorkers.push(worker);
+      }
+    });
+    return setSelecterWorkers(arraySelectedWorkers);
+  };
+
+  const selectOptionsRender = (listOfDeps) => {
+    let renderOptions = listOfDeps.map((departement) => (
+      <option value={departement}>{departement}</option>
+    ));
+    return (
+      <select onChange={(event) => handleChangeSelect(event)}>
+        {renderOptions}
+      </select>
+    );
+  };
+
   const renderWorker = (worker, favorite) => {
     return (
       <>
         <DivImage>
           <StyledImg src={worker.img} alt={`picture of ${worker.name}`} />
         </DivImage>
-        <Name id="name"> {worker.name} </Name>
+        <Name id="name">
+          {worker.name}
+          <Button
+            onClick={() => {
+              handleClickFav(worker);
+            }}
+          >
+            {favorite ? "😡 " : "🌟"}
+          </Button>
+        </Name>
         <Job>
           {worker.job}
           <span> {worker.department} </span>
         </Job>
-        <Button
-          onClick={() => {
-            handleClickFav(worker);
-          }}
-        >
-          {favorite ? "😡 " : "🌟"}
-        </Button>
       </>
     );
   };
-
+  
   let arrayOfDepartments = [];
-  const mapForDepartments = workers.map((worker) => {
+  workers.map((worker) => {
     if (!arrayOfDepartments.includes(worker.department)) {
       arrayOfDepartments.push(worker.department);
     }
   });
 
   const workerDataDisplay = workers.map((worker) => (
+    <Coworker key={worker.name}>
+      <BackgroundWorker></BackgroundWorker>
+      {renderWorker(worker, false)}
+    </Coworker>
+  ));
+  const selectedWorkersDataDisplay = selectedWorkers.map((worker) => (
     <Coworker key={worker.name}>
       <BackgroundWorker></BackgroundWorker>
       {renderWorker(worker, false)}
@@ -150,8 +207,18 @@ function Worker({ workersProps }) {
 
   return (
     <>
-      {favWorkers && favWorkerDataDisplay}
-      {workerDataDisplay}
+      <FavoritesWrapper>
+        {favWorkers && (
+          <>
+            <p> FAVORRRRRITEEEEES </p>
+            {favWorkerDataDisplay}
+          </>
+        )}
+      </FavoritesWrapper>
+      <SelectWrapper>
+        {selectOptionsRender(arrayOfDepartments)}.{selectedWorkersDataDisplay}
+      </SelectWrapper>
+      <WorkersWrapper>{workerDataDisplay}</WorkersWrapper>
     </>
   );
 }
