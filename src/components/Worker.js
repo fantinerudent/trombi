@@ -15,14 +15,17 @@ const WorkersWrapper = styled.div`
     grid-auto-rows: fit-content;
   }
 `;
-const FavoritesWrapper = styled.div`
-  display: flex;
-  flex-direction: rows;
-  width: fit-content;
-`;
+
 const SelectWrapper = styled.div`
+  padding: 20px;
+  width: auto;
   display: flex;
-  flex-direction: rows;
+  flex-direction: row;
+  justify-content: space-around;
+  & div {
+    width: auto;
+    min-width: 215px;
+  }
 `;
 
 const Name = styled.div`
@@ -87,7 +90,7 @@ const StyledImg = styled.img`
 const FavCoworker = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 20px;
+  margin: 20px 0;
   background-color: white;
   border-radius: 30px;
   padding: 1px;
@@ -95,6 +98,19 @@ const FavCoworker = styled.div`
   -webkit-box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
   -moz-box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
   box-shadow: inset 0px 6px 39px 11px rgba(255, 10, 10, 0.57);
+`;
+
+const FavoritesWrapper = styled.div`
+  background-color : #ff99d6;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  border-radius: 30px;
+  justify-content: space-around;
+  & div {
+      width: auto;
+    min-width: 215px;
+  }
 `;
 
 const Coworker = styled.div`
@@ -115,11 +131,13 @@ function Worker() {
   );
 
   const [selectedWorkers, setSelecterWorkers] = useState([]);
+  const [favListEmpty, setFavListStatus] = useState(true);
 
   const handleClickFav = (worker) => {
     let indexInFav = favWorkers.indexOf(worker);
     let indexInWorkers = workers.indexOf(worker);
     if (indexInFav === -1) {
+      setFavListStatus(false);
       workers.splice(indexInWorkers, 1);
       setWorkers(workers);
       let newArrayOfFav = [...favWorkers];
@@ -130,6 +148,9 @@ function Worker() {
     setFavWorkers(favWorkers);
     let newArrayOfWorkers = [...workers];
     newArrayOfWorkers.push(worker);
+    if (favWorkers.lenght === 0) {
+      setFavListStatus(true);
+    }
     return setWorkers(newArrayOfWorkers);
   };
 
@@ -177,7 +198,7 @@ function Worker() {
       </>
     );
   };
-  
+
   let arrayOfDepartments = [];
   workers.map((worker) => {
     if (!arrayOfDepartments.includes(worker.department)) {
@@ -207,16 +228,13 @@ function Worker() {
 
   return (
     <>
+      {!favListEmpty && <p id="favTitle"> Favorites </p>}
       <FavoritesWrapper>
-        {favWorkers && (
-          <>
-            <p> FAVORRRRRITEEEEES </p>
-            {favWorkerDataDisplay}
-          </>
-        )}
+        {favWorkers && <>{favWorkerDataDisplay}</>}
       </FavoritesWrapper>
       <SelectWrapper>
-        {selectOptionsRender(arrayOfDepartments)}.{selectedWorkersDataDisplay}
+        {selectOptionsRender(arrayOfDepartments)}
+        {selectedWorkersDataDisplay}
       </SelectWrapper>
       <WorkersWrapper>{workerDataDisplay}</WorkersWrapper>
     </>

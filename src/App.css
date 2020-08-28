@@ -1,12 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Libre+Baskerville&family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Libre+Baskerville&family=Pacifico&display=swap");
 /* font-family: 'Indie Flower', cursive;
 font-family: 'Libre Baskerville', serif;
 font-family: 'Pacifico', cursive; */
 
 body {
-    font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
 }
 
-#name {
-    font-family: 'Pacifico', cursive;
+#name,
+#favTitle {
+  font-family: "Pacifico", cursive;
+}
+
+#favTitle {
+  font-size: 2em;
+  text-align: center;
+}
+
+select {
+  height: fit-content;
+  display: flex;
 }

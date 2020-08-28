@@ -3,8 +3,6 @@ import Worker from "./Worker";
 import styled from "styled-components";
 import WorkersContext from "../Contexts/WorkersContext";
 
-// import Favworker from "./FavWorker";
-
 const WrapperWorkers = styled.div`
   justify-content: center;
   position: relative;
@@ -20,9 +18,7 @@ const WrapperWorkers = styled.div`
 function Gridpictures() {
   return (
     <>
-      {/* <WrapperWorkers> */}
-        <Worker />
-      {/* </WrapperWorkers> */}
+      <Worker />
     </>
   );
 }
