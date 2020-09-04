@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import Header from "./components/Header";
 import mockedData from "./assets/data/fakedata.json";
-import Gridpictures from "./components/GridPictures";
+import Worker from "./components/Worker";
 import { WorkersProvider } from "./Contexts/WorkersContext";
 import "./App.css";
 
@@ -23,7 +23,7 @@ function App() {
     <WorkersProvider value={providerValue}>
       <div style={{ backgroundColor: "#008b8b" }}>
         <Header />
-        <Gridpictures />
+        <Worker />
       </div>
     </WorkersProvider>
   );

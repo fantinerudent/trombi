@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Geometrics from "../assets/banner.jpg";
 import WorkersContext from "../Contexts/WorkersContext";
 import HeartsBanner from "../assets/hearts.jpg";
+import AbstractPastel from "../assets/abstract-pastel.jpg";
 
 const WorkersWrapper = styled.div`
   justify-content: center;
@@ -17,14 +18,19 @@ const WorkersWrapper = styled.div`
 `;
 
 const SelectWrapper = styled.div`
-  padding: 20px;
-  width: auto;
-  display: flex;
-  flex-direction: row;
+  background-image: url(${AbstractPastel});
+  background-size: cover;
+  padding: 40px;
+  display: block;
+  margin:  30px auto;
+  border-radius: 20px;
+  width: fit-content;
+  overflow: scroll;
+  flex-direction: column;
   justify-content: space-around;
   & div {
     width: auto;
-    min-width: 215px;
+    /* min-width: 215px; */
   }
 `;
 
@@ -101,14 +107,14 @@ const FavCoworker = styled.div`
 `;
 
 const FavoritesWrapper = styled.div`
-  background-color : #ff99d6;
+  background-color: #ff99d6;
   display: flex;
   flex-direction: row;
   width: auto;
   border-radius: 30px;
   justify-content: space-around;
   & div {
-      width: auto;
+    width: auto;
     min-width: 215px;
   }
 `;
@@ -165,6 +171,7 @@ function Worker() {
   };
 
   const selectOptionsRender = (listOfDeps) => {
+    listOfDeps[0] = 'please choose an option';
     let renderOptions = listOfDeps.map((departement) => (
       <option value={departement}>{departement}</option>
     ));
