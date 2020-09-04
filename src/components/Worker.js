@@ -5,6 +5,7 @@ import WorkersContext from "../Contexts/WorkersContext";
 import HeartsBanner from "../assets/hearts.jpg";
 import AbstractPastel from "../assets/abstract-pastel.jpg";
 
+
 const WorkersWrapper = styled.div`
   justify-content: center;
   position: relative;
@@ -22,7 +23,7 @@ const SelectWrapper = styled.div`
   background-size: cover;
   padding: 40px;
   display: block;
-  margin:  30px auto;
+  margin: 30px auto;
   border-radius: 20px;
   width: fit-content;
   overflow: scroll;
@@ -171,7 +172,7 @@ function Worker() {
   };
 
   const selectOptionsRender = (listOfDeps) => {
-    listOfDeps[0] = 'please choose an option';
+    listOfDeps[0] = "please choose an option";
     let renderOptions = listOfDeps.map((departement) => (
       <option value={departement}>{departement}</option>
     ));

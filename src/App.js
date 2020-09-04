@@ -1,12 +1,23 @@
-import React, { useState, useMemo } from "react";
-import Header from "./components/Header";
-import mockedData from "./assets/data/fakedata.json";
-import Worker from "./components/Worker";
+import React, { useState, useMemo, useEffect } from "react";
+import Header from "./Components/Header";
+import axios from "axios";
+import Worker from "./Components/Worker";
 import { WorkersProvider } from "./Contexts/WorkersContext";
+
 import "./App.css";
 
+
 function App() {
-  const [workers, setWorkers] = useState(mockedData);
+  const [workers, setWorkers] = useState([]);
+
+  useEffect(() => {
+    const workersFromBDD = async () => {
+      const result = await axios.get("/workers");
+      setWorkers(result.data);
+    };
+    workersFromBDD();
+  }, []);
+
   const [favWorkers, setFavWorkers] = useState([]);
 
   const providerValue = useMemo(
