@@ -155,7 +155,7 @@ function Worker() {
     setFavWorkers(favWorkers);
     let newArrayOfWorkers = [...workers];
     newArrayOfWorkers.push(worker);
-    if (favWorkers.lenght === 0) {
+    if (favWorkers.length === 0) {
       setFavListStatus(true);
     }
     return setWorkers(newArrayOfWorkers);

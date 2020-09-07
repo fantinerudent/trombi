@@ -10,13 +10,13 @@ import "./App.css";
 function App() {
   const [workers, setWorkers] = useState([]);
 
-  useEffect(() => {
-    const workersFromBDD = async () => {
-      const result = await axios.get("/workers");
-      setWorkers(result.data);
-    };
-    workersFromBDD();
-  }, []);
+  // useEffect(() => {
+  //   const workersFromBDD = async () => {
+  //     const result = await axios.get("/worker");
+  //     setWorkers(result.data);
+  //   };
+  //   workersFromBDD();
+  // }, []);
 
   const [favWorkers, setFavWorkers] = useState([]);
 
