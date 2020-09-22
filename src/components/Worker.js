@@ -5,7 +5,6 @@ import WorkersContext from "../Contexts/WorkersContext";
 import HeartsBanner from "../assets/hearts.jpg";
 import AbstractPastel from "../assets/abstract-pastel.jpg";
 
-
 const WorkersWrapper = styled.div`
   justify-content: center;
   position: relative;
@@ -26,7 +25,7 @@ const SelectWrapper = styled.div`
   margin: 30px auto;
   border-radius: 20px;
   width: fit-content;
-  overflow: scroll;
+  overflow: auto;
   flex-direction: column;
   justify-content: space-around;
   & div {
