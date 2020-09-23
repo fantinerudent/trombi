@@ -10,8 +10,7 @@ body {
   margin: 0;
 }
 
-#name,
-#favTitle {
+#name, #favTitle {
   font-family: "Pacifico", cursive;
 }
 
@@ -20,10 +19,14 @@ body {
   text-align: center;
 }
 
+#login {
+  font-family: 'Libre Baskerville', serif;
+}
+
 select {
   padding: 10px;
   background-color: pink;
-  font-family : 'Libre Baskerville', serif;
+  font-family: 'Libre Baskerville', serif;
   color: white;
   font-size: 1.4em;
   height: fit-content;

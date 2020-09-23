@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import Header from "./Components/Header";
 import axios from "axios";
 import Worker from "./Components/Worker";
-import Login from "./Components/Login";
 import { WorkersProvider } from "./Contexts/WorkersContext";
 
 import "./App.css";
@@ -34,7 +33,6 @@ function App() {
     <WorkersProvider value={providerValue}>
       <div style={{ backgroundColor: "#008b8b" }}>
         <Header />
-        <Login />
         <Worker />
       </div>
     </WorkersProvider>
