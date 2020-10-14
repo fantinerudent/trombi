@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledForm = styled.form`
   display: flex;
@@ -27,8 +28,29 @@ function Login() {
   const [company, setCompany] = useState("");
   const [isPasswordEmpty, setPasswordStatus] = useState(true);
   const [password, setPassword] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const userData = {
+      name: name,
+      company: company,
+      password: password
+    };
+    console.log(userData)
+
+    axios
+      .post("/login", userData)
+      .then((response) => {
+        console.log(userData)
+        // hasError(response.data.error);
+        // setNewMessageError(response.data.errorMessage);
+        // setUser(response.data.userData);
+        // setIsLogged(response.data.isLogged);
+        // setIsAdmin(response.data.userData.isAdministrator);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   const handleChangeName = (e) => {
@@ -55,7 +77,7 @@ function Login() {
 
   return (
     <>
-      <StyledForm id="login" onSubmit={(event) => handleSubmit(event)}>
+      <StyledForm action="/login" method="post" id="login" onSubmit={(event) => handleSubmit(event)}>
         <label> Enter your name or the company's name</label>
         <input
           onChange={(e) => {
