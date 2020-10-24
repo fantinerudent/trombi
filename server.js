@@ -66,9 +66,9 @@ app.post("/login", urlencodedParser, (req, res) => {
           response.message = " You are logged!";
           response.error = false;
           response.isLogged = true;
-          return console.log("yooo");
+          res.json(response);
         } else {
-          console.log("mauvais mdp")
+          console.log("mauvais mdp");
         }
       }
     });

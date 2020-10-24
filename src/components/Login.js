@@ -22,26 +22,30 @@ const StyledForm = styled.form`
 `;
 
 function Login() {
+  const [isLogged, setIsLogged] = useState(false);
   const [isNameEmpty, setNameStatus] = useState(true);
   const [name, setName] = useState("");
   const [isCompanyEmpty, setCompanyStatus] = useState(true);
   const [company, setCompany] = useState("");
   const [isPasswordEmpty, setPasswordStatus] = useState(true);
   const [password, setPassword] = useState("");
+  const [messageLogin, setMessageLogin] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const userData = {
       name: name,
       company: company,
-      password: password
+      password: password,
     };
-    console.log(userData)
+    console.log(userData);
 
     axios
       .post("/login", userData)
       .then((response) => {
-        console.log(userData)
+        console.log(response);
+        setMessageLogin(response.data.message);
+        setIsLogged(response.data.isLogged);
         // hasError(response.data.error);
         // setNewMessageError(response.data.errorMessage);
         // setUser(response.data.userData);
@@ -77,41 +81,49 @@ function Login() {
 
   return (
     <>
-      <StyledForm action="/login" method="post" id="login" onSubmit={(event) => handleSubmit(event)}>
-        <label> Enter your name or the company's name</label>
-        <input
-          onChange={(e) => {
-            handleChangeName(e);
-          }}
-          type="text"
-          name="name"
-          placeholder="name"
-          autoComplete="off"
-        />
-        <input
-          onChange={(e) => {
-            handleChangeCompany(e);
-          }}
-          type="text"
-          name="company"
-          placeholder="company"
-          autoComplete="off"
-        />
-        <input
-          onChange={(e) => {
-            handleChangePassword(e);
-          }}
-          type="password"
-          name="password"
-          placeholder="password"
-        />
-        <button
-          type="submit"
-          disabled={(isNameEmpty && isCompanyEmpty) || isPasswordEmpty}
+      {!isLogged && (
+        <StyledForm
+          action="/login"
+          method="post"
+          id="login"
+          onSubmit={(event) => handleSubmit(event)}
         >
-          send
-        </button>
-      </StyledForm>
+          <label> Enter your name or the company's name</label>
+          <input
+            onChange={(e) => {
+              handleChangeName(e);
+            }}
+            type="text"
+            name="name"
+            placeholder="name"
+            autoComplete="off"
+          />
+          <input
+            onChange={(e) => {
+              handleChangeCompany(e);
+            }}
+            type="text"
+            name="company"
+            placeholder="company"
+            autoComplete="off"
+          />
+          <input
+            onChange={(e) => {
+              handleChangePassword(e);
+            }}
+            type="password"
+            name="password"
+            placeholder="password"
+          />
+          <button
+            type="submit"
+            disabled={(isNameEmpty && isCompanyEmpty) || isPasswordEmpty}
+          >
+            send
+          </button>
+        </StyledForm>
+      )}
+      {messageLogin && <div> {messageLogin}</div>}
     </>
   );
 }
