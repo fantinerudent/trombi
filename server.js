@@ -68,7 +68,8 @@ app.post("/login", urlencodedParser, (req, res) => {
           response.isLogged = true;
           res.json(response);
         } else {
-          console.log("mauvais mdp");
+          response.errorMessage = "wrong password or name";
+          res.json(response);
         }
       }
     });

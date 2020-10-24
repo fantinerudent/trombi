@@ -30,6 +30,7 @@ function Login() {
   const [isPasswordEmpty, setPasswordStatus] = useState(true);
   const [password, setPassword] = useState("");
   const [messageLogin, setMessageLogin] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,6 +47,7 @@ function Login() {
         console.log(response);
         setMessageLogin(response.data.message);
         setIsLogged(response.data.isLogged);
+        setErrorMessage(response.data.errorMessage);
         // hasError(response.data.error);
         // setNewMessageError(response.data.errorMessage);
         // setUser(response.data.userData);
@@ -121,6 +123,9 @@ function Login() {
           >
             send
           </button>
+          {errorMessage && (
+            <div style={{ fontSize: "10px" }}> {errorMessage} </div>
+          )}
         </StyledForm>
       )}
       {messageLogin && <div> {messageLogin}</div>}
