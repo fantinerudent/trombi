@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import WorkersContext from "../Contexts/WorkersContext";
 
 const StyledForm = styled.form`
   display: flex;
@@ -22,7 +23,7 @@ const StyledForm = styled.form`
 `;
 
 function Login() {
-  const [isLogged, setIsLogged] = useState(false);
+  const { isLogged, setIsLogged, setUser } = useContext(WorkersContext);
   const [isNameEmpty, setNameStatus] = useState(true);
   const [name, setName] = useState("");
   const [isCompanyEmpty, setCompanyStatus] = useState(true);
@@ -44,10 +45,10 @@ function Login() {
     axios
       .post("/login", userData)
       .then((response) => {
-        console.log(response);
         setMessageLogin(response.data.message);
         setIsLogged(response.data.isLogged);
         setErrorMessage(response.data.errorMessage);
+        response.data.isLogged ? setUser(userData) : setUser([]);
         // hasError(response.data.error);
         // setNewMessageError(response.data.errorMessage);
         // setUser(response.data.userData);

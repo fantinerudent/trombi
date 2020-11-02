@@ -23,13 +23,16 @@ app.get("/", (req, res) => {
 });
 
 // route to get all the workers in the DB;
-app.get("/workers", (req, res) => {
+app.get("/workers/:collection", (req, res) => {
+  console.log(req.params)
+  const companyCollection = req.params.collection;
   client.connect((err) => {
     if (err) {
       console.log(err);
     }
     let db = client.db("trombinoscope");
-    let collection = db.collection("workers");
+    console.log(companyCollection)
+    let collection = db.collection(`${companyCollection}`);
     collection.find().toArray((err, result) => {
       if (err) {
         console.log(err);

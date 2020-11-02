@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Geometrics from "../assets/banner.jpg";
 import WorkersContext from "../Contexts/WorkersContext";
@@ -132,9 +133,18 @@ const Coworker = styled.div`
 `;
 
 function Worker() {
-  const { workers, setWorkers, favWorkers, setFavWorkers } = useContext(
+  const { workers, setWorkers, favWorkers, setFavWorkers, user } = useContext(
     WorkersContext
   );
+  console.log("user in worker", user);
+
+  useEffect(() => {
+    const workersFromBDD = async () => {
+      const result = await axios.get(`/workers/${user.company}`);
+      setWorkers(result.data);
+    };
+    workersFromBDD();
+  }, [user]);
 
   const [selectedWorkers, setSelecterWorkers] = useState([]);
   const [favListEmpty, setFavListStatus] = useState(true);
