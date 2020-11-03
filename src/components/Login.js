@@ -74,6 +74,12 @@ function Login() {
     setPasswordStatus(true);
   };
 
+  const handleLogOut = () => {
+    setUser("");
+    setMessageLogin("");
+    setIsLogged(false);
+  };
+
   return (
     <>
       {!isLogged && (
@@ -109,7 +115,13 @@ function Login() {
           )}
         </StyledForm>
       )}
-      {messageLogin && <div> {messageLogin}</div>}
+      {messageLogin && (
+        <div>
+          {" "}
+          {messageLogin}
+          <button onClick={handleLogOut}> Log out</button>
+        </div>
+      )}
     </>
   );
 }
