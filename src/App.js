@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import Header from "./Components/Header";
 import Worker from "./Components/Worker";
+import Home from "./Components/Home";
 import { WorkersProvider } from "./Contexts/WorkersContext";
 
 import "./App.css";
@@ -36,9 +37,12 @@ function App() {
 
   return (
     <WorkersProvider value={providerValue}>
-      <div style={{ backgroundColor: "#008b8b" }}>
+      <div
+        style={{ backgroundColor: "#008b8b", height: "100vh", width: "100vw" }}
+      >
         <Header />
         {isLogged && <Worker />}
+        {!isLogged && <Home/>}
       </div>
     </WorkersProvider>
   );

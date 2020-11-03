@@ -9,7 +9,7 @@ const StyledHeader = styled.div`
   background-image: url(${Background});
   color: white;
   font-size: 4em;
-  width: 95vw;
+  width: 96vw;
   height: fit-content;
   text-align: center;
   padding: 30px;
