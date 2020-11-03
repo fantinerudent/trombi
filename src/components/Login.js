@@ -26,8 +26,6 @@ function Login() {
   const { isLogged, setIsLogged, setUser } = useContext(WorkersContext);
   const [isNameEmpty, setNameStatus] = useState(true);
   const [name, setName] = useState("");
-  const [isCompanyEmpty, setCompanyStatus] = useState(true);
-  const [company, setCompany] = useState("");
   const [isPasswordEmpty, setPasswordStatus] = useState(true);
   const [password, setPassword] = useState("");
   const [messageLogin, setMessageLogin] = useState("");
@@ -37,7 +35,6 @@ function Login() {
     event.preventDefault();
     const userData = {
       name: name,
-      company: company,
       password: password,
     };
     console.log(userData);
@@ -48,6 +45,7 @@ function Login() {
         setMessageLogin(response.data.message);
         setIsLogged(response.data.isLogged);
         setErrorMessage(response.data.errorMessage);
+        userData.company = response.data.companyName;
         response.data.isLogged ? setUser(userData) : setUser([]);
         // hasError(response.data.error);
         // setNewMessageError(response.data.errorMessage);
@@ -67,13 +65,7 @@ function Login() {
     }
     setNameStatus(true);
   };
-  const handleChangeCompany = (e) => {
-    if (e.currentTarget.value.length) {
-      setCompanyStatus(false);
-      return setCompany(e.currentTarget.value);
-    }
-    setCompanyStatus(true);
-  };
+
   const handleChangePassword = (e) => {
     if (e.currentTarget.value.length) {
       setPasswordStatus(false);
@@ -103,25 +95,13 @@ function Login() {
           />
           <input
             onChange={(e) => {
-              handleChangeCompany(e);
-            }}
-            type="text"
-            name="company"
-            placeholder="company"
-            autoComplete="off"
-          />
-          <input
-            onChange={(e) => {
               handleChangePassword(e);
             }}
             type="password"
             name="password"
             placeholder="password"
           />
-          <button
-            type="submit"
-            disabled={(isNameEmpty && isCompanyEmpty) || isPasswordEmpty}
-          >
+          <button type="submit" disabled={isNameEmpty || isPasswordEmpty}>
             send
           </button>
           {errorMessage && (

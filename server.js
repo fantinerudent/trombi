@@ -69,6 +69,7 @@ app.post("/login", urlencodedParser, (req, res) => {
           response.message = " You are logged!";
           response.error = false;
           response.isLogged = true;
+          response.companyName = informationsUser.company;
           res.json(response);
         } else {
           response.errorMessage = "wrong password or name";
