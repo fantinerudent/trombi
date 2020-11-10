@@ -89,7 +89,6 @@ function Login() {
           id="login"
           onSubmit={(event) => handleSubmit(event)}
         >
-          <label> Enter your name or the company's name</label>
           <input
             onChange={(e) => {
               handleChangeName(e);

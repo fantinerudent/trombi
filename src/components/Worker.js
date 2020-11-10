@@ -136,7 +136,6 @@ function Worker() {
   const { workers, setWorkers, favWorkers, setFavWorkers, user } = useContext(
     WorkersContext
   );
-  console.log("user in worker", user);
 
   useEffect(() => {
     const workersFromBDD = async () => {
@@ -148,6 +147,14 @@ function Worker() {
 
   const [selectedWorkers, setSelecterWorkers] = useState([]);
   const [favListEmpty, setFavListStatus] = useState(true);
+
+  let arrayOfDepartments = [];
+  workers.map((worker) => {
+    if (!arrayOfDepartments.includes(worker.department)) {
+      arrayOfDepartments.push(worker.department);
+    }
+    return;
+  });
 
   const handleClickFav = (worker) => {
     let indexInFav = favWorkers.indexOf(worker);
@@ -176,6 +183,7 @@ function Worker() {
       if (worker.department === event.currentTarget.value) {
         arraySelectedWorkers.push(worker);
       }
+      return;
     });
     return setSelecterWorkers(arraySelectedWorkers);
   };
@@ -215,13 +223,6 @@ function Worker() {
       </>
     );
   };
-
-  let arrayOfDepartments = [];
-  workers.map((worker) => {
-    if (!arrayOfDepartments.includes(worker.department)) {
-      arrayOfDepartments.push(worker.department);
-    }
-  });
 
   const workerDataDisplay = workers.map((worker) => (
     <Coworker key={worker.name}>
